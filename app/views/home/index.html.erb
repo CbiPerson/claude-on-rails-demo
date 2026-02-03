@@ -15,6 +15,27 @@
     color: var(--light);
   }
 
+  .site-nav {
+    display: flex;
+    gap: 8px;
+    padding: 16px 24px;
+    background: var(--teal);
+    border-bottom: 1px solid #2a2a4a;
+  }
+
+  .site-nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .site-nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .site-nav a.active { color: var(--gold); background: rgba(245,197,24,0.1); }
+
   .hero {
     text-align: center;
     padding: 80px 20px 40px;
@@ -164,6 +185,12 @@
     border-top: 1px solid #2a2a4a;
   }
 </style>
+
+<nav class="site-nav">
+  <a href="/" class="active">Home</a>
+  <a href="/guide">Guide</a>
+  <a href="/examples">Examples</a>
+</nav>
 
 <section class="hero">
   <h1><span class="rails">Rails</span> + <span class="swarm">SwarmPod</span></h1>

@@ -1,0 +1,205 @@
+<style>
+  :root {
+    --navy: #1a1a2e;
+    --teal: #16213e;
+    --accent: #e94560;
+    --gold: #f5c518;
+    --light: #eaeaea;
+    --green: #2ecc71;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--navy);
+    color: var(--light);
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 8px;
+    padding: 16px 24px;
+    background: var(--teal);
+    border-bottom: 1px solid #2a2a4a;
+  }
+
+  .site-nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .site-nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .site-nav a.active { color: var(--gold); background: rgba(245,197,24,0.1); }
+
+  .guide-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 50px 20px 80px;
+  }
+
+  .guide-page h1 {
+    font-size: 2.4rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .guide-page .subtitle {
+    font-size: 1.15rem;
+    color: #aaa;
+    margin-bottom: 50px;
+    line-height: 1.6;
+  }
+
+  .step-card {
+    background: var(--teal);
+    border: 1px solid #2a2a4a;
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+  }
+
+  .step-card .step-number {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .step-card h2 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin: 0 0 12px;
+  }
+
+  .step-card p {
+    font-size: 1rem;
+    color: #ccc;
+    line-height: 1.7;
+    margin: 0 0 12px;
+  }
+
+  .step-card code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--gold);
+  }
+
+  .step-card pre {
+    background: rgba(0,0,0,0.3);
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0 0;
+  }
+
+  .step-card pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.9rem;
+    color: var(--light);
+  }
+
+  .guide-footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .guide-footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .guide-footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<nav class="site-nav">
+  <a href="/">Home</a>
+  <a href="/guide" class="active">Guide</a>
+  <a href="/examples">Examples</a>
+</nav>
+
+<div class="guide-page">
+  <h1>Getting Started</h1>
+  <p class="subtitle">
+    From zero to a running agent swarm in five steps.
+  </p>
+
+  <div class="step-card">
+    <div class="step-number">Step 1</div>
+    <h2>Install Prerequisites</h2>
+    <p>
+      You need <strong>Ruby 3.4.5</strong>, <strong>Bundler</strong>, and <strong>SQLite3</strong> to run the Rails app.
+      To use the agent swarm, you also need the <strong>Claude CLI</strong> and <strong>claude-swarm</strong>.
+    </p>
+    <p>
+      On macOS with Homebrew:
+    </p>
+    <pre><code>brew install rbenv ruby-build sqlite3
+rbenv install 3.4.5
+gem install bundler claude-swarm</code></pre>
+  </div>
+
+  <div class="step-card">
+    <div class="step-number">Step 2</div>
+    <h2>Clone &amp; Install</h2>
+    <p>
+      Clone this repo and run the quickstart script. It checks your tools,
+      installs gems, and prepares the database.
+    </p>
+    <pre><code>git clone https://github.com/CbiPerson/claude-on-rails-demo.git
+cd claude-on-rails-demo
+bin/quickstart</code></pre>
+  </div>
+
+  <div class="step-card">
+    <div class="step-number">Step 3</div>
+    <h2>Start the Rails Server</h2>
+    <p>
+      Boot the app and open your browser to <code>http://localhost:3000</code>.
+    </p>
+    <pre><code>bin/rails server</code></pre>
+  </div>
+
+  <div class="step-card">
+    <div class="step-number">Step 4</div>
+    <h2>Launch the Swarm</h2>
+    <p>
+      Open a <strong>second terminal</strong> (keep the server running) and start the agent swarm.
+      The Architect agent will be ready for your instructions.
+    </p>
+    <pre><code>claude-swarm</code></pre>
+  </div>
+
+  <div class="step-card">
+    <div class="step-number">Step 5</div>
+    <h2>Try a Prompt</h2>
+    <p>
+      Tell the swarm what to build. Start simple:
+    </p>
+    <pre><code>Add a Contact page with a name field, email field, and a submit button.</code></pre>
+    <p>
+      The Architect will delegate to the Controllers and Views agents.
+      When it&rsquo;s done, refresh your browser to see the new page.
+    </p>
+  </div>
+
+  <p class="guide-footer">
+    For more detail, see the full
+    <a href="https://github.com/CbiPerson/claude-on-rails-demo/blob/main/GETTING_STARTED.md">GETTING_STARTED.md</a>
+    guide.
+    &nbsp;&bull;&nbsp;
+    <a href="/examples">View example workflows &rarr;</a>
+  </p>
+</div>

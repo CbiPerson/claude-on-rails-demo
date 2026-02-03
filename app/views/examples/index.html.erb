@@ -1,0 +1,293 @@
+<style>
+  :root {
+    --navy: #1a1a2e;
+    --teal: #16213e;
+    --accent: #e94560;
+    --gold: #f5c518;
+    --light: #eaeaea;
+    --green: #2ecc71;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--navy);
+    color: var(--light);
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 8px;
+    padding: 16px 24px;
+    background: var(--teal);
+    border-bottom: 1px solid #2a2a4a;
+  }
+
+  .site-nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .site-nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .site-nav a.active { color: var(--gold); background: rgba(245,197,24,0.1); }
+
+  .examples-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 50px 20px 80px;
+  }
+
+  .examples-page h1 {
+    font-size: 2.4rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .examples-page .subtitle {
+    font-size: 1.15rem;
+    color: #aaa;
+    margin-bottom: 50px;
+    line-height: 1.6;
+  }
+
+  .example-card {
+    background: var(--teal);
+    border: 1px solid #2a2a4a;
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 32px;
+  }
+
+  .example-card.simple   { border-top: 3px solid var(--accent); }
+  .example-card.fullstack { border-top: 3px solid #3498db; }
+  .example-card.jobs      { border-top: 3px solid var(--green); }
+
+  .example-card .example-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .example-card.fullstack .example-label { color: #3498db; }
+  .example-card.jobs .example-label { color: var(--green); }
+
+  .example-card h2 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin: 0 0 14px;
+  }
+
+  .example-card p {
+    font-size: 1rem;
+    color: #ccc;
+    line-height: 1.7;
+    margin: 0 0 12px;
+  }
+
+  .example-card strong {
+    color: #fff;
+  }
+
+  .prompt-block {
+    background: rgba(0,0,0,0.3);
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--light);
+    margin: 12px 0;
+    overflow-x: auto;
+  }
+
+  .prompt-block .prompt-prefix {
+    color: var(--gold);
+    user-select: none;
+  }
+
+  .agent-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+  }
+
+  .agent-list li {
+    padding: 5px 0;
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+
+  .agent-list li strong {
+    color: var(--gold);
+    min-width: 120px;
+    display: inline-block;
+  }
+
+  .files-list {
+    background: rgba(0,0,0,0.3);
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin: 12px 0;
+    line-height: 1.8;
+  }
+
+  .files-list .new-file { color: var(--green); }
+  .files-list .mod-file { color: var(--gold); }
+
+  .takeaway {
+    background: rgba(245,197,24,0.08);
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin-top: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+
+  .examples-footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .examples-footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .examples-footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<nav class="site-nav">
+  <a href="/">Home</a>
+  <a href="/guide">Guide</a>
+  <a href="/examples" class="active">Examples</a>
+</nav>
+
+<div class="examples-page">
+  <h1>Example Workflows</h1>
+  <p class="subtitle">
+    See what happens when you give the swarm a prompt. Each example shows the input,
+    which agents activate, and what code gets produced.
+  </p>
+
+  <!-- Example 1: Simple Page -->
+  <div class="example-card simple">
+    <div class="example-label">Example 1</div>
+    <h2>Add a Simple Page</h2>
+
+    <div class="prompt-block">
+      <span class="prompt-prefix">&gt; </span>Add a Contact page with a heading, a paragraph of text, and a link back to the home page.
+    </div>
+
+    <p><strong>Agents activated:</strong></p>
+    <ul class="agent-list">
+      <li><strong>Architect</strong> Reads prompt, decides only Controllers + Views are needed</li>
+      <li><strong>Controllers</strong> Adds route, creates ContactController</li>
+      <li><strong>Views</strong> Creates the ERB template with heading, text, and link</li>
+    </ul>
+
+    <p><strong>Files created:</strong></p>
+    <div class="files-list">
+      <span class="mod-file">config/routes.rb</span> &mdash; added route<br>
+      <span class="new-file">app/controllers/contact_controller.rb</span> &mdash; new<br>
+      <span class="new-file">app/views/contact/index.html.erb</span> &mdash; new
+    </div>
+
+    <div class="takeaway">
+      The swarm only activates the agents it needs. No database work means the Models agent stays idle.
+    </div>
+  </div>
+
+  <!-- Example 2: Full-Stack Blog -->
+  <div class="example-card fullstack">
+    <div class="example-label">Example 2</div>
+    <h2>Full-Stack Blog</h2>
+
+    <div class="prompt-block">
+      <span class="prompt-prefix">&gt; </span>Create a Blog. A post has a title and body. Include model with validations, CRUD controller, all views, and tests.
+    </div>
+
+    <p><strong>Agents activated:</strong></p>
+    <ul class="agent-list">
+      <li><strong>Architect</strong> Recognizes full-stack work, activates four agents</li>
+      <li><strong>Models</strong> Creates migration, Post model with validations</li>
+      <li><strong>Controllers</strong> Adds RESTful routes, creates PostsController with CRUD</li>
+      <li><strong>Views</strong> Creates index, show, new, edit templates + form partial</li>
+      <li><strong>Tests</strong> Creates model and controller tests</li>
+    </ul>
+
+    <p><strong>Files created:</strong></p>
+    <div class="files-list">
+      <span class="new-file">db/migrate/..._create_posts.rb</span> &mdash; migration<br>
+      <span class="new-file">app/models/post.rb</span> &mdash; model<br>
+      <span class="mod-file">config/routes.rb</span> &mdash; added resources :posts<br>
+      <span class="new-file">app/controllers/posts_controller.rb</span> &mdash; CRUD controller<br>
+      <span class="new-file">app/views/posts/index.html.erb</span> &mdash; listing<br>
+      <span class="new-file">app/views/posts/show.html.erb</span> &mdash; detail view<br>
+      <span class="new-file">app/views/posts/new.html.erb</span> &mdash; new form<br>
+      <span class="new-file">app/views/posts/edit.html.erb</span> &mdash; edit form<br>
+      <span class="new-file">app/views/posts/_form.html.erb</span> &mdash; shared partial<br>
+      <span class="new-file">test/models/post_test.rb</span> &mdash; model tests<br>
+      <span class="new-file">test/controllers/posts_controller_test.rb</span> &mdash; controller tests
+    </div>
+
+    <div class="takeaway">
+      One prompt produces a complete feature across all Rails layers, following conventions like RESTful routes, strong parameters, and form partials.
+    </div>
+  </div>
+
+  <!-- Example 3: Background Jobs -->
+  <div class="example-card jobs">
+    <div class="example-label">Example 3</div>
+    <h2>Background Jobs</h2>
+
+    <div class="prompt-block">
+      <span class="prompt-prefix">&gt; </span>When a new user signs up, send them a welcome email in the background. Create the User model, mailer, and job.
+    </div>
+
+    <p><strong>Agents activated:</strong></p>
+    <ul class="agent-list">
+      <li><strong>Architect</strong> Identifies model, async processing, and test concerns</li>
+      <li><strong>Models</strong> Creates User migration + model with after_create callback</li>
+      <li><strong>Jobs</strong> Creates SendWelcomeEmailJob and WelcomeMailer</li>
+      <li><strong>Tests</strong> Creates model, job, and mailer tests</li>
+    </ul>
+
+    <p><strong>Files created:</strong></p>
+    <div class="files-list">
+      <span class="new-file">db/migrate/..._create_users.rb</span> &mdash; migration<br>
+      <span class="new-file">app/models/user.rb</span> &mdash; model with callback<br>
+      <span class="new-file">app/jobs/send_welcome_email_job.rb</span> &mdash; background job<br>
+      <span class="new-file">app/mailers/welcome_mailer.rb</span> &mdash; mailer<br>
+      <span class="new-file">app/views/welcome_mailer/welcome.html.erb</span> &mdash; email template<br>
+      <span class="new-file">test/models/user_test.rb</span> &mdash; model tests<br>
+      <span class="new-file">test/jobs/send_welcome_email_job_test.rb</span> &mdash; job tests<br>
+      <span class="new-file">test/mailers/welcome_mailer_test.rb</span> &mdash; mailer tests
+    </div>
+
+    <div class="takeaway">
+      The swarm handles cross-cutting concerns naturally. Models creates the trigger, Jobs creates the async work, and Tests covers everything.
+    </div>
+  </div>
+
+  <p class="examples-footer">
+    For full details, see
+    <a href="https://github.com/CbiPerson/claude-on-rails-demo/blob/main/EXAMPLES.md">EXAMPLES.md</a>
+    in the repo.
+    &nbsp;&bull;&nbsp;
+    <a href="/guide">&larr; Back to guide</a>
+  </p>
+</div>

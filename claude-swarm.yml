@@ -1,20 +1,31 @@
+# claude-swarm.yml -- Agent swarm configuration for this Rails project.
+# Read by `claude-swarm` when you run it from the project root.
+# Each "instance" defines one specialist agent with its own role, tools, and scope.
+
 version: 1
 swarm:
   name: "ClaudeOnRailsDemo Rails Development Team"
+
+  # "main" is the entry-point agent -- the one that receives your prompt first.
+  # It coordinates the other agents (the specialists).
   main: architect
+
   instances:
     architect:
       description: "Rails architect coordinating full-stack development for ClaudeOnRailsDemo"
-      directory: .
+      directory: .                 # Can see the entire project
       model: opus
+      # "connections" lists which agents this agent can delegate work to.
       connections: [models, controllers, views, stimulus, jobs, tests, devops]
+      # "prompt_file" points to a markdown file with this agent's instructions.
       prompt_file: .claude-on-rails/prompts/architect.md
       vibe: true
 
     models:
       description: "ActiveRecord models, migrations, and database optimization specialist"
-      directory: ./app/models
+      directory: ./app/models      # Scoped to the models directory
       model: opus
+      # "allowed_tools" restricts which tools this agent can use.
       allowed_tools: [Read, Edit, Write, Bash, Grep, Glob, LS]
       prompt_file: .claude-on-rails/prompts/models.md
 
@@ -29,7 +40,7 @@ swarm:
       description: "Rails views, layouts, partials, and asset pipeline specialist"
       directory: ./app/views
       model: opus
-      connections: [stimulus]
+      connections: [stimulus]      # Views agent can ask Stimulus agent for JS help
       allowed_tools: [Read, Edit, Write, Bash, Grep, Glob, LS]
       prompt_file: .claude-on-rails/prompts/views.md
 
