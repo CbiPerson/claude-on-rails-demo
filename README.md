@@ -1,4 +1,4 @@
-# CLAUDE-ON-RAILS-DEMO
+# claude-on-rails-demo
 
 A working demo of [claude-on-rails](https://github.com/CbiPerson/claude-on-rails) -- an AI agent swarm for Rails development.
 
@@ -21,8 +21,8 @@ This Rails app was generated from the [swarmpod-core](https://github.com/CbiPers
 ## Try It Yourself
 
 ```bash
-git clone https://github.com/CbiPerson/CLAUDE-ON-RAILS-DEMO.git
-cd CLAUDE-ON-RAILS-DEMO
+git clone https://github.com/CbiPerson/claude-on-rails-demo.git
+cd claude-on-rails-demo
 bundle install
 claude-swarm
 ```
