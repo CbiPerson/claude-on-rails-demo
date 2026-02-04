@@ -1,8 +1,10 @@
 # claude-on-rails-demo
 
-A working demo of [claude-on-rails](https://github.com/CbiPerson/claude-on-rails) -- an AI **agent swarm** for Rails development.
+A working demo of [claude-on-rails](https://github.com/obie/claude-on-rails) -- an AI **agent swarm** for Rails development.
 
 Instead of one AI assistant, you get a coordinated team: an architect that plans the work, and specialists for models, controllers, views, tests, and more. Each agent knows its domain and stays in its lane.
+
+![Hero and configuration](docs/images/hero-and-config.png)
 
 ## What Is This?
 
@@ -10,10 +12,29 @@ Most AI coding tools give you a single chatbot. **claude-on-rails** gives you a 
 
 1. You describe what you want in plain English
 2. The **Architect** agent breaks it into tasks
-3. Specialist agents (Models, Controllers, Views, Tests, ...) implement each piece
+3. Specialist agents (Models, Controllers, Views, Tests, ...) implement each piece in parallel
 4. You get working code across every Rails layer
 
 This repo is a ready-to-run example so you can see it in action.
+
+## Agent Architecture
+
+![Agents and CLI commands](docs/images/agents-and-cli.png)
+
+Eight agents defined in `claude-swarm.yml`, each scoped to a specific directory:
+
+| Agent | Directory | Role |
+|-------|-----------|------|
+| **Architect** | `.` | Entry point. Coordinates the full team, delegates work |
+| **Models** | `./app/models` | ActiveRecord, migrations, database design |
+| **Controllers** | `./app/controllers` | Routing and request handling |
+| **Views** | `./app/views` | Templates, layouts, partials |
+| **Stimulus** | `./app/javascript` | Turbo and Stimulus.js integration |
+| **Jobs** | `./app/jobs` | Background processing with ActiveJob |
+| **Tests** | `./test` | Test coverage (Minitest) |
+| **DevOps** | `./config` | Deployment, Docker, CI/CD |
+
+The architect can delegate to all agents. The views agent can also delegate to stimulus for JS work.
 
 ## Prerequisites
 
@@ -27,6 +48,8 @@ This repo is a ready-to-run example so you can see it in action.
 
 ## Quick Start
 
+![Getting started guide](docs/images/getting-started.png)
+
 ```bash
 # 1. Clone the repo
 git clone https://github.com/CbiPerson/claude-on-rails-demo.git
@@ -39,7 +62,7 @@ bin/quickstart
 bin/rails server
 
 # 4. Open a second terminal and launch the swarm
-claude-swarm
+claude-swarm start
 ```
 
 Then tell the swarm what to build:
@@ -50,42 +73,64 @@ Then tell the swarm what to build:
 
 The architect will coordinate the work across the specialist agents automatically.
 
-## What's Inside
+## Example Workflows
 
-### Agent Team (defined in `claude-swarm.yml`)
+![Example workflows](docs/images/example-workflows.png)
 
-| Agent | Role |
-|-------|------|
-| **Architect** | Coordinates the full team, plans implementation |
-| **Models** | ActiveRecord, migrations, database design |
-| **Controllers** | Routing and request handling |
-| **Views** | Templates, layouts, partials |
-| **Stimulus** | Turbo and Stimulus.js integration |
-| **Jobs** | Background processing with ActiveJob |
-| **Tests** | Test coverage (Minitest) |
-| **DevOps** | Deployment, Docker, CI/CD |
+The demo app includes three example walkthroughs showing different levels of agent coordination:
 
-### Pages
+**Simple Page** -- Only controllers + views agents activate. Models stays idle because no database work is needed.
 
-| URL | What it shows |
-|-----|---------------|
-| `/` | Home page with lesson cards |
-| `/next` | Architecture explainer |
-| `/guide` | Step-by-step getting started guide |
-| `/examples` | Example swarm workflows |
+**Full-Stack Blog** -- All four core agents (models, controllers, views, tests) work together to produce a complete CRUD feature with migrations, routes, templates, and test coverage.
 
-### Project Structure
+**Background Jobs** -- Cross-cutting concerns handled naturally. Models creates the trigger, jobs creates the async worker and mailer, tests covers everything.
+
+## CLI Commands
+
+```bash
+# Start with a prompt (non-interactive)
+claude-swarm start -p "Add user authentication with Devise"
+
+# Interactive mode
+claude-swarm start -i "Let's add a blog feature"
+
+# Watch agents work in real time
+claude-swarm ps
+claude-swarm watch SESSION_ID
+
+# Resume a previous session
+claude-swarm list-sessions
+claude-swarm restore SESSION_ID
+
+# Use git worktrees for parallel branches
+claude-swarm start -w feature-branch -p "Implement payments"
+
+# Vibe mode (skip permission prompts)
+claude-swarm start --vibe
+```
+
+## Project Structure
 
 ```
-claude-swarm.yml              # Agent swarm configuration
+claude-swarm.yml                # Agent swarm configuration
 .claude-on-rails/
-  prompts/                    # Per-agent instruction files
-  context.md                  # Shared project context
+  prompts/                      # Per-agent prompt files (markdown)
+    architect.md                # Team coordination instructions
+    models.md                   # ActiveRecord best practices
+    controllers.md              # Routing/request patterns
+    views.md                    # Template/partial guidelines
+    stimulus.md                 # Turbo/Stimulus patterns
+    jobs.md                     # ActiveJob patterns
+    tests.md                    # Minitest conventions
+    devops.md                   # Deployment config
+  context.md                    # Shared project context
+CLAUDE.md                       # Claude Code project instructions
 app/
-  controllers/                # One controller per page
-  views/                      # ERB templates with inline CSS
-config/routes.rb              # Route definitions
-test/controllers/             # Integration tests
+  controllers/                  # One controller per page
+  views/                        # ERB templates with inline CSS
+config/routes.rb                # Route definitions
+test/controllers/               # Integration tests
+docs/images/                    # Screenshots for README
 ```
 
 ## How the Swarm Works
@@ -104,6 +149,6 @@ The Architect reads your prompt, decides which agents to involve, and delegates.
 
 - **[GETTING_STARTED.md](GETTING_STARTED.md)** -- step-by-step setup from zero
 - **[EXAMPLES.md](EXAMPLES.md)** -- full workflow walkthroughs
-- **[claude-on-rails](https://github.com/CbiPerson/claude-on-rails)** -- the gem
+- **[claude-on-rails](https://github.com/obie/claude-on-rails)** -- the gem (upstream)
 - **[swarmpod-core](https://github.com/CbiPerson/swarmpod-core)** -- the Rails template used as a starting point
 - **[claude-swarm](https://github.com/parruda/claude-swarm)** -- the underlying agent orchestration framework
