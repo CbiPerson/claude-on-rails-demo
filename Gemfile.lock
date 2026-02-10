@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CbiPerson/swarmpod-core.git
-  revision: 2bcc118a820b462b847833efbd5336b41cc270ce
+  revision: e9fadfc16b95bac8e71099e01f753b690f870caf
   specs:
     swarmpod-core (0.5.0)
 
